@@ -9,11 +9,15 @@ async function run() {
 
     const { repository } = context.payload
 
+    const ownership = {
+        owner: context.repo.owner,
+        repo: context.repo.repo
+    }
+
     await octokit.checks.create({
-        owner: repository?.owner.login,
-        repo: repository?.full_name,
+        ...ownership,
         name: 'Cypress Check',
-        head_sha: context.sha,
+        head_sha: core.getInput("sha"),
         details_url: "https://www.soomolearning.com/",
         conclusion: 'neutral'
     })
