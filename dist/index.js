@@ -46,9 +46,19 @@ function run() {
         const { repository } = context.payload;
         const ownership = {
             owner: context.repo.owner,
-            repo: context.repo.repo
+            repo: context.repo.repo,
         };
-        yield octokit.checks.create(Object.assign(Object.assign({}, ownership), { name: 'Cypress Check', head_sha: context.sha, details_url: "https://www.soomolearning.com/", conclusion: 'neutral' }));
+        if (core.getInput("name")) {
+            const id = core.getInput("check_id");
+            core.debug(`Updating a Run on ${ownership.owner}/${ownership.repo}@${context.sha} (${id})`);
+            const { data } = yield octokit.checks.update(Object.assign(Object.assign({}, ownership), { name: 'Soomo Check', head_sha: context.sha, details_url: 'https://soomolearning.com', conclusion: 'success' }));
+            core.info(JSON.stringify(data, null, 2));
+        }
+        else {
+            core.debug(`Creating a new Run on ${ownership.owner}/${ownership.repo}@${context.sha}`);
+            const { data } = yield octokit.checks.create(Object.assign(Object.assign({}, ownership), { name: 'Soomo Check', head_sha: context.sha, details_url: 'https://soomolearning.com', started_at: new Date().toISOString(), conclusion: 'action_required' }));
+            core.info(JSON.stringify(data, null, 2));
+        }
     });
 }
 run();
