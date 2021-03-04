@@ -16,7 +16,7 @@ async function run() {
 
     const { data } = await octokit.checks.create({
         ...ownership,
-        name: 'Cypress Check',
+        name: 'Soomo Check',
         head_sha: context.sha,
         details_url: 'https://www.chromatic.com/pullrequest?appId=5e691330fb5ac50022e9a397&number=168',
         started_at: new Date().toISOString(),
