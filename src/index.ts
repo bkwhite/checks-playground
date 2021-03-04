@@ -17,7 +17,7 @@ async function run() {
     await octokit.checks.create({
         ...ownership,
         name: 'Cypress Check',
-        head_sha: core.getInput("sha"),
+        head_sha: context.sha,
         details_url: "https://www.soomolearning.com/",
         conclusion: 'neutral'
     })

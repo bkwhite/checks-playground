@@ -48,7 +48,7 @@ function run() {
             owner: context.repo.owner,
             repo: context.repo.repo
         };
-        yield octokit.checks.create(Object.assign(Object.assign({}, ownership), { name: 'Cypress Check', head_sha: core.getInput("sha"), details_url: "https://www.soomolearning.com/", conclusion: 'neutral' }));
+        yield octokit.checks.create(Object.assign(Object.assign({}, ownership), { name: 'Cypress Check', head_sha: context.sha, details_url: "https://www.soomolearning.com/", conclusion: 'neutral' }));
     });
 }
 run();
