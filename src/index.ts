@@ -14,7 +14,7 @@ async function run() {
         repo: context.repo.repo,
     }
 
-    core.debug(
+    core.info(
         `Creating a new Run on ${ownership.owner}/${ownership.repo}@${context.sha}`
     )
     const { data } = await octokit.checks.create({
@@ -23,7 +23,7 @@ async function run() {
         head_sha: context.sha,
         details_url: 'https://soomolearning.com',
         started_at: new Date().toISOString(),
-        conclusion: 'action_required',
+        conclusion: 'success',
     })
     core.info(JSON.stringify(data, null, 2))
 }
