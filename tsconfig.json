@@ -3,8 +3,12 @@
     "target": "es6",
     "module": "commonjs",
     "outDir": "lib",
-    "lib": ["es2018"],
-    "esModuleInterop": true
+    "rootDir": "src",
+    "strict": true,
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "lib": ["ES2018"]
   },
-  "lib": ["es2015"]
+  "lib": ["es2015"],
+  "exclude": ["node_modules"]
 }
