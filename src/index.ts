@@ -14,27 +14,11 @@ async function run() {
         repo: context.repo.repo,
     }
 
-    core.info(
-        JSON.stringify(
-            {
-                ...ownership,
-                name: 'Cypress Check',
-                head_sha: context.sha,
-                details_url: 'https://www.soomolearning.com/',
-                conclusion: 'neutral',
-                status: 'completed',
-            },
-            null,
-            2
-        )
-    )
-
     const { data } = await octokit.checks.create({
         ...ownership,
         name: 'Cypress Check',
         head_sha: context.sha,
-        details_url: 'https://www.soomolearning.com/',
-        action_url: 'https://www.soomolearning.com/',
+        details_url: 'https://www.chromatic.com/pullrequest?appId=5e691330fb5ac50022e9a397&number=168',
         started_at: new Date().toISOString(),
         conclusion: 'action_required',
     })
