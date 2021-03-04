@@ -14,6 +14,8 @@ async function run() {
         repo: context.repo.repo,
     }
 
+    core.info(core.getInput("name"))
+
     const { data } = await octokit.checks.create({
         ...ownership,
         name: 'Soomo Check',
