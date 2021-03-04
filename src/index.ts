@@ -11,17 +11,36 @@ async function run() {
 
     const ownership = {
         owner: context.repo.owner,
-        repo: context.repo.repo
+        repo: context.repo.repo,
     }
 
-    await octokit.checks.create({
+    core.info(
+        JSON.stringify(
+            {
+                ...ownership,
+                name: 'Cypress Check',
+                head_sha: context.sha,
+                details_url: 'https://www.soomolearning.com/',
+                conclusion: 'neutral',
+                status: 'completed',
+            },
+            null,
+            2
+        )
+    )
+
+    const { data } = await octokit.checks.create({
         ...ownership,
         name: 'Cypress Check',
         head_sha: context.sha,
-        details_url: "https://www.soomolearning.com/",
+        details_url: 'https://www.soomolearning.com/',
         conclusion: 'neutral',
-        status: 'completed'
+        status: 'completed',
     })
+
+    core.info(String(data.details_url))
+
+    core.info(JSON.stringify(data, null, 2))
 }
 
 run()

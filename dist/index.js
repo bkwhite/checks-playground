@@ -46,9 +46,12 @@ function run() {
         const { repository } = context.payload;
         const ownership = {
             owner: context.repo.owner,
-            repo: context.repo.repo
+            repo: context.repo.repo,
         };
-        yield octokit.checks.create(Object.assign(Object.assign({}, ownership), { name: 'Cypress Check', head_sha: context.sha, details_url: "https://www.soomolearning.com/", conclusion: 'neutral' }));
+        core.info(JSON.stringify(Object.assign(Object.assign({}, ownership), { name: 'Cypress Check', head_sha: context.sha, details_url: 'https://www.soomolearning.com/', conclusion: 'neutral', status: 'completed' }), null, 2));
+        const { data } = yield octokit.checks.create(Object.assign(Object.assign({}, ownership), { name: 'Cypress Check', head_sha: context.sha, details_url: 'https://www.soomolearning.com/', conclusion: 'neutral', status: 'completed' }));
+        core.info(String(data.details_url));
+        core.info(JSON.stringify(data, null, 2));
     });
 }
 run();
