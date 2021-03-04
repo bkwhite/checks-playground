@@ -1,0 +1,12 @@
+name: 'Cypress Checks'
+description: 'Add checks after cypress run'
+author: 'bley'
+
+inputs:
+  GITHUB_TOKEN: 
+    description: 'GitHub Token'
+    required: true
+
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
