@@ -19,7 +19,8 @@ async function run() {
         name: 'Cypress Check',
         head_sha: context.sha,
         details_url: "https://www.soomolearning.com/",
-        conclusion: 'neutral'
+        conclusion: 'neutral',
+        status: 'completed'
     })
 }
 
