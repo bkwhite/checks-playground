@@ -34,8 +34,7 @@ async function run() {
         name: 'Cypress Check',
         head_sha: context.sha,
         details_url: 'https://www.soomolearning.com/',
-        conclusion: 'neutral',
-        status: 'completed',
+        conclusion: 'action_required',
     })
 
     core.info(String(data.details_url))
