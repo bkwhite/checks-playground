@@ -48,9 +48,17 @@ function run() {
             owner: context.repo.owner,
             repo: context.repo.repo,
         };
-        const { data } = yield octokit.checks.create(Object.assign(Object.assign({}, ownership), { name: 'Soomo Check', head_sha: context.sha, details_url: 'https://www.chromatic.com/pullrequest?appId=5e691330fb5ac50022e9a397&number=168', started_at: new Date().toISOString(), conclusion: 'action_required' }));
-        core.info(String(data.details_url));
-        core.info(JSON.stringify(data, null, 2));
+        if (core.getInput("name")) {
+            const id = core.getInput("check_id");
+            core.debug(`Updating a Run on ${ownership.owner}/${ownership.repo}@${context.sha} (${id})`);
+            const { data } = yield octokit.checks.update(Object.assign(Object.assign({}, ownership), { name: 'Soomo Check', head_sha: context.sha, details_url: 'https://soomolearning.com', conclusion: 'success' }));
+            core.info(JSON.stringify(data, null, 2));
+        }
+        else {
+            core.debug(`Creating a new Run on ${ownership.owner}/${ownership.repo}@${context.sha}`);
+            const { data } = yield octokit.checks.create(Object.assign(Object.assign({}, ownership), { name: 'Soomo Check', head_sha: context.sha, details_url: 'https://soomolearning.com', started_at: new Date().toISOString(), conclusion: 'action_required' }));
+            core.info(JSON.stringify(data, null, 2));
+        }
     });
 }
 run();
