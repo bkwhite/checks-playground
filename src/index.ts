@@ -34,6 +34,8 @@ async function run() {
         name: 'Cypress Check',
         head_sha: context.sha,
         details_url: 'https://www.soomolearning.com/',
+        action_url: 'https://www.soomolearning.com/',
+        started_at: new Date().toISOString(),
         conclusion: 'action_required',
     })
 
