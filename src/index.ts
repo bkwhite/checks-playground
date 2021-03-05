@@ -1,3 +1,4 @@
+import fs from 'fs'
 import * as core from '@actions/core'
 import * as github from '@actions/github'
 
@@ -25,6 +26,10 @@ async function run() {
         details_url: 'https://soomolearning.com',
         // started_at: new Date().toISOString(),
         conclusion: 'success',
+        output: {
+            title: "Check Output",
+            summary: fs.readFileSync('summary.md', 'utf-8'),
+        }
     })
 
     core.info("DONE")

@@ -35,7 +35,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+const fs_1 = __importDefault(__nccwpck_require__(747));
 const core = __importStar(__nccwpck_require__(186));
 const github = __importStar(__nccwpck_require__(438));
 function run() {
@@ -51,7 +55,10 @@ function run() {
         core.info(`Creating a new Run on ${ownership.owner}/${ownership.repo}@${context.sha}`);
         const { data } = yield octokit.checks.create(Object.assign(Object.assign({}, ownership), { name: 'Soomo Check', head_sha: context.sha, details_url: 'https://soomolearning.com', 
             // started_at: new Date().toISOString(),
-            conclusion: 'success' }));
+            conclusion: 'success', output: {
+                title: "Check Output",
+                summary: fs_1.default.readFileSync('summary.md', 'utf-8'),
+            } }));
         core.info("DONE");
         core.info(JSON.stringify(data, null, 2));
     });
