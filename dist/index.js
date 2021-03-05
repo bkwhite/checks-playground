@@ -2,6 +2,14 @@ module.exports =
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 542:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse("{\"stats\":{\"suites\":2,\"tests\":9,\"passes\":8,\"pending\":0,\"failures\":1,\"start\":\"2021-03-05T16:34:21.244Z\",\"end\":\"2021-03-05T16:34:49.737Z\",\"duration\":20726,\"testsRegistered\":9,\"passPercent\":88.88888888888889,\"pendingPercent\":0,\"other\":0,\"hasOther\":false,\"skipped\":0,\"hasSkipped\":false},\"results\":[{\"uuid\":\"aa45582d-19ac-4c39-bc59-a62f5fdb7ccf\",\"title\":\"\",\"fullFile\":\"cypress/integration/ActivityHistory.feature\",\"file\":\"cypress/integration/ActivityHistory.feature\",\"beforeHooks\":[],\"afterHooks\":[],\"tests\":[],\"suites\":[{\"uuid\":\"e702faa0-1be6-4cd3-bebe-795a11ec4b14\",\"title\":\"Post history in Analytics for RB & SA questions\",\"fullFile\":\"\",\"file\":\"\",\"beforeHooks\":[],\"afterHooks\":[],\"tests\":[{\"title\":\"No activity in a short-answer question\",\"fullTitle\":\"Post history in Analytics for RB & SA questions No activity in a short-answer question\",\"timedOut\":null,\"duration\":3249,\"state\":\"passed\",\"speed\":\"slow\",\"pass\":true,\"fail\":false,\"pending\":false,\"context\":null,\"code\":\"const state = window.testState;\\nreturn cy\\n  .then(() => state.onStartScenario(scenario, indexedSteps))\\n  .then(() =>\\n    resolveAndRunBeforeHooks.call(this, scenario.tags, state.feature.name)\\n  )\\n  .then(() =>\\n    indexedSteps.forEach((step) =>\\n      stepTest.call(this, state, step, rowData)\\n    )\\n  )\\n  .then(() =>\\n    resolveAndRunAfterHooks.call(this, scenario.tags, state.feature.name)\\n  )\\n  .then(() => state.onFinishScenario(scenario));\",\"err\":{},\"uuid\":\"f3c70917-eca3-459d-98dd-17b32a86afdc\",\"parentUUID\":\"e702faa0-1be6-4cd3-bebe-795a11ec4b14\",\"isHook\":false,\"skipped\":false},{\"title\":\"Student drafts an answer for a short-answer question\",\"fullTitle\":\"Post history in Analytics for RB & SA questions Student drafts an answer for a short-answer question\",\"timedOut\":null,\"duration\":2127,\"state\":\"passed\",\"speed\":\"slow\",\"pass\":true,\"fail\":false,\"pending\":false,\"context\":null,\"code\":\"const state = window.testState;\\nreturn cy\\n  .then(() => state.onStartScenario(scenario, indexedSteps))\\n  .then(() =>\\n    resolveAndRunBeforeHooks.call(this, scenario.tags, state.feature.name)\\n  )\\n  .then(() =>\\n    indexedSteps.forEach((step) =>\\n      stepTest.call(this, state, step, rowData)\\n    )\\n  )\\n  .then(() =>\\n    resolveAndRunAfterHooks.call(this, scenario.tags, state.feature.name)\\n  )\\n  .then(() => state.onFinishScenario(scenario));\",\"err\":{},\"uuid\":\"59ce89a0-887e-4311-89bf-5fb83c329ca7\",\"parentUUID\":\"e702faa0-1be6-4cd3-bebe-795a11ec4b14\",\"isHook\":false,\"skipped\":false},{\"title\":\"Student posts an answer to a short-answer question\",\"fullTitle\":\"Post history in Analytics for RB & SA questions Student posts an answer to a short-answer question\",\"timedOut\":null,\"duration\":2357,\"state\":\"passed\",\"speed\":\"slow\",\"pass\":true,\"fail\":false,\"pending\":false,\"context\":null,\"code\":\"const state = window.testState;\\nreturn cy\\n  .then(() => state.onStartScenario(scenario, indexedSteps))\\n  .then(() =>\\n    resolveAndRunBeforeHooks.call(this, scenario.tags, state.feature.name)\\n  )\\n  .then(() =>\\n    indexedSteps.forEach((step) =>\\n      stepTest.call(this, state, step, rowData)\\n    )\\n  )\\n  .then(() =>\\n    resolveAndRunAfterHooks.call(this, scenario.tags, state.feature.name)\\n  )\\n  .then(() => state.onFinishScenario(scenario));\",\"err\":{},\"uuid\":\"3178eea3-d286-4ebd-863c-a6158b5bd39a\",\"parentUUID\":\"e702faa0-1be6-4cd3-bebe-795a11ec4b14\",\"isHook\":false,\"skipped\":false},{\"title\":\"Student unposts an answer to a short-answer question\",\"fullTitle\":\"Post history in Analytics for RB & SA questions Student unposts an answer to a short-answer question\",\"timedOut\":null,\"duration\":2948,\"state\":\"passed\",\"speed\":\"slow\",\"pass\":true,\"fail\":false,\"pending\":false,\"context\":null,\"code\":\"const state = window.testState;\\nreturn cy\\n  .then(() => state.onStartScenario(scenario, indexedSteps))\\n  .then(() =>\\n    resolveAndRunBeforeHooks.call(this, scenario.tags, state.feature.name)\\n  )\\n  .then(() =>\\n    indexedSteps.forEach((step) =>\\n      stepTest.call(this, state, step, rowData)\\n    )\\n  )\\n  .then(() =>\\n    resolveAndRunAfterHooks.call(this, scenario.tags, state.feature.name)\\n  )\\n  .then(() => state.onFinishScenario(scenario));\",\"err\":{},\"uuid\":\"15fac8ef-78cb-49ba-b4ad-1f3ddfa6d596\",\"parentUUID\":\"e702faa0-1be6-4cd3-bebe-795a11ec4b14\",\"isHook\":false,\"skipped\":false},{\"title\":\"Instructor adds a comment to a short-answer question\",\"fullTitle\":\"Post history in Analytics for RB & SA questions Instructor adds a comment to a short-answer question\",\"timedOut\":null,\"duration\":3001,\"state\":\"passed\",\"speed\":\"slow\",\"pass\":true,\"fail\":false,\"pending\":false,\"context\":null,\"code\":\"const state = window.testState;\\nreturn cy\\n  .then(() => state.onStartScenario(scenario, indexedSteps))\\n  .then(() =>\\n    resolveAndRunBeforeHooks.call(this, scenario.tags, state.feature.name)\\n  )\\n  .then(() =>\\n    indexedSteps.forEach((step) =>\\n      stepTest.call(this, state, step, rowData)\\n    )\\n  )\\n  .then(() =>\\n    resolveAndRunAfterHooks.call(this, scenario.tags, state.feature.name)\\n  )\\n  .then(() => state.onFinishScenario(scenario));\",\"err\":{},\"uuid\":\"64afd466-19f7-4f95-afbb-c2da227fe100\",\"parentUUID\":\"e702faa0-1be6-4cd3-bebe-795a11ec4b14\",\"isHook\":false,\"skipped\":false},{\"title\":\"Instructor starts to edit their comment\",\"fullTitle\":\"Post history in Analytics for RB & SA questions Instructor starts to edit their comment\",\"timedOut\":null,\"duration\":756,\"state\":\"passed\",\"speed\":\"slow\",\"pass\":true,\"fail\":false,\"pending\":false,\"context\":null,\"code\":\"const state = window.testState;\\nreturn cy\\n  .then(() => state.onStartScenario(scenario, indexedSteps))\\n  .then(() =>\\n    resolveAndRunBeforeHooks.call(this, scenario.tags, state.feature.name)\\n  )\\n  .then(() =>\\n    indexedSteps.forEach((step) =>\\n      stepTest.call(this, state, step, rowData)\\n    )\\n  )\\n  .then(() =>\\n    resolveAndRunAfterHooks.call(this, scenario.tags, state.feature.name)\\n  )\\n  .then(() => state.onFinishScenario(scenario));\",\"err\":{},\"uuid\":\"5127b9d8-b2b0-4251-a21b-c9d93df73089\",\"parentUUID\":\"e702faa0-1be6-4cd3-bebe-795a11ec4b14\",\"isHook\":false,\"skipped\":false},{\"title\":\"Instructor saves their comment edits\",\"fullTitle\":\"Post history in Analytics for RB & SA questions Instructor saves their comment edits\",\"timedOut\":null,\"duration\":3721,\"state\":\"passed\",\"speed\":\"slow\",\"pass\":true,\"fail\":false,\"pending\":false,\"context\":null,\"code\":\"const state = window.testState;\\nreturn cy\\n  .then(() => state.onStartScenario(scenario, indexedSteps))\\n  .then(() =>\\n    resolveAndRunBeforeHooks.call(this, scenario.tags, state.feature.name)\\n  )\\n  .then(() =>\\n    indexedSteps.forEach((step) =>\\n      stepTest.call(this, state, step, rowData)\\n    )\\n  )\\n  .then(() =>\\n    resolveAndRunAfterHooks.call(this, scenario.tags, state.feature.name)\\n  )\\n  .then(() => state.onFinishScenario(scenario));\",\"err\":{},\"uuid\":\"9401a52c-e3e6-42be-a183-2707ce9af361\",\"parentUUID\":\"e702faa0-1be6-4cd3-bebe-795a11ec4b14\",\"isHook\":false,\"skipped\":false},{\"title\":\"Instructor unposts a student response\",\"fullTitle\":\"Post history in Analytics for RB & SA questions Instructor unposts a student response\",\"timedOut\":null,\"duration\":2224,\"state\":\"passed\",\"speed\":\"slow\",\"pass\":true,\"fail\":false,\"pending\":false,\"context\":null,\"code\":\"const state = window.testState;\\nreturn cy\\n  .then(() => state.onStartScenario(scenario, indexedSteps))\\n  .then(() =>\\n    resolveAndRunBeforeHooks.call(this, scenario.tags, state.feature.name)\\n  )\\n  .then(() =>\\n    indexedSteps.forEach((step) =>\\n      stepTest.call(this, state, step, rowData)\\n    )\\n  )\\n  .then(() =>\\n    resolveAndRunAfterHooks.call(this, scenario.tags, state.feature.name)\\n  )\\n  .then(() => state.onFinishScenario(scenario));\",\"err\":{},\"uuid\":\"ac643141-ce5e-44c9-9c26-03c6e4701bc6\",\"parentUUID\":\"e702faa0-1be6-4cd3-bebe-795a11ec4b14\",\"isHook\":false,\"skipped\":false}],\"suites\":[],\"passes\":[\"f3c70917-eca3-459d-98dd-17b32a86afdc\",\"59ce89a0-887e-4311-89bf-5fb83c329ca7\",\"3178eea3-d286-4ebd-863c-a6158b5bd39a\",\"15fac8ef-78cb-49ba-b4ad-1f3ddfa6d596\",\"64afd466-19f7-4f95-afbb-c2da227fe100\",\"5127b9d8-b2b0-4251-a21b-c9d93df73089\",\"9401a52c-e3e6-42be-a183-2707ce9af361\",\"ac643141-ce5e-44c9-9c26-03c6e4701bc6\"],\"failures\":[],\"pending\":[],\"skipped\":[],\"duration\":20383,\"root\":false,\"rootEmpty\":false,\"_timeout\":2000}],\"passes\":[],\"failures\":[],\"pending\":[],\"skipped\":[],\"duration\":0,\"root\":true,\"rootEmpty\":true,\"_timeout\":2000},{\"uuid\":\"995c3ba5-8618-4d1c-9d1b-9817bdabc77e\",\"title\":\"\",\"fullFile\":\"cypress/integration/ActivityHistoryFailure.feature\",\"file\":\"cypress/integration/ActivityHistoryFailure.feature\",\"beforeHooks\":[],\"afterHooks\":[],\"tests\":[],\"suites\":[{\"uuid\":\"7af8a44b-e0c9-4dac-adca-b15d18300e4b\",\"title\":\"This feature is meant to fail\",\"fullFile\":\"\",\"file\":\"\",\"beforeHooks\":[],\"afterHooks\":[],\"tests\":[{\"title\":\"Instructor saves their comment edits\",\"fullTitle\":\"This feature is meant to fail Instructor saves their comment edits\",\"timedOut\":null,\"duration\":343,\"state\":\"failed\",\"speed\":null,\"pass\":false,\"fail\":true,\"pending\":false,\"context\":null,\"code\":\"const state = window.testState;\\nreturn cy\\n  .then(() => state.onStartScenario(scenario, indexedSteps))\\n  .then(() =>\\n    resolveAndRunBeforeHooks.call(this, scenario.tags, state.feature.name)\\n  )\\n  .then(() =>\\n    indexedSteps.forEach((step) =>\\n      stepTest.call(this, state, step, rowData)\\n    )\\n  )\\n  .then(() =>\\n    resolveAndRunAfterHooks.call(this, scenario.tags, state.feature.name)\\n  )\\n  .then(() => state.onFinishScenario(scenario));\",\"err\":{\"message\":\"Error: Step implementation missing for: the activity history is:\",\"estack\":\"Error: Step implementation missing for: the activity history is:\\n    at Context.resolveAndRunStepDefinition (http://localhost:59335/__cypress/tests?p=cypress/integration/ActivityHistoryFailure.feature:12200:11)\\n    at Context.eval (http://localhost:59335/__cypress/tests?p=cypress/integration/ActivityHistoryFailure.feature:11538:35)\",\"diff\":null},\"uuid\":\"76281680-a626-43cc-a280-be32cb8de2ca\",\"parentUUID\":\"7af8a44b-e0c9-4dac-adca-b15d18300e4b\",\"isHook\":false,\"skipped\":false}],\"suites\":[],\"passes\":[],\"failures\":[\"76281680-a626-43cc-a280-be32cb8de2ca\"],\"pending\":[],\"skipped\":[],\"duration\":343,\"root\":false,\"rootEmpty\":false,\"_timeout\":2000}],\"passes\":[],\"failures\":[],\"pending\":[],\"skipped\":[],\"duration\":0,\"root\":true,\"rootEmpty\":true,\"_timeout\":2000}],\"meta\":{\"mocha\":{\"version\":\"7.0.1\"},\"mochawesome\":{\"options\":{\"quiet\":false,\"reportFilename\":\"mochawesome\",\"saveHtml\":false,\"saveJson\":true,\"consoleReporter\":\"spec\",\"useInlineDiffs\":false,\"code\":true},\"version\":\"6.2.2\"},\"marge\":{\"options\":{\"reportDir\":\"cypress/reports\",\"overwrite\":false,\"html\":false,\"json\":true},\"version\":\"5.2.0\"}}}");
+
+/***/ }),
+
 /***/ 822:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -39,10 +47,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const fs_1 = __importDefault(__nccwpck_require__(747));
-const path_1 = __importDefault(__nccwpck_require__(622));
 const core = __importStar(__nccwpck_require__(186));
 const github = __importStar(__nccwpck_require__(438));
+const output_json_1 = __importDefault(__nccwpck_require__(542));
+const summary_1 = __nccwpck_require__(608);
+function buildSummary() {
+    return summary_1.formatSummaryData(summary_1.buildSummaryData(output_json_1.default));
+}
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         const GITHUB_TOKEN = core.getInput('GITHUB_TOKEN');
@@ -54,17 +65,53 @@ function run() {
             repo: context.repo.repo,
         };
         core.info(`Creating a new Run on ${ownership.owner}/${ownership.repo}@${context.sha}`);
+        core.info(`Summary`);
+        core.info(buildSummary());
         const { data } = yield octokit.checks.create(Object.assign(Object.assign({}, ownership), { name: 'Soomo Check', head_sha: context.sha, details_url: 'https://soomolearning.com', 
             // started_at: new Date().toISOString(),
             conclusion: 'success', output: {
-                title: "Check Output",
-                summary: fs_1.default.readFileSync(path_1.default.join(__dirname, 'summary.md'), 'utf-8'),
+                title: 'Check Output',
+                summary: buildSummary()
             } }));
-        core.info("DONE");
+        core.info('DONE');
         core.info(JSON.stringify(data, null, 2));
     });
 }
 run();
+
+
+/***/ }),
+
+/***/ 608:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.formatSummaryData = exports.buildSummaryData = void 0;
+function buildSummaryData(cypressOutput) {
+    return cypressOutput.results.reduce((accum, r) => {
+        return [
+            ...accum,
+            ...r.suites.map((s) => ({
+                title: s.title,
+                conclusion: s.failures.length > 0 ? 'fail' : 'pass',
+                duration: s.duration,
+            })),
+        ];
+    }, []);
+}
+exports.buildSummaryData = buildSummaryData;
+function formatSummaryData(summaryData) {
+    let document = '### Test Results\n';
+    summaryData.forEach((d) => {
+        document =
+            `${document}` +
+                `- ${d.title} : ${d.conclusion.toLocaleUpperCase()} (${Math.floor(d.duration / 1000)} seconds) \n`;
+    });
+    return document;
+}
+exports.formatSummaryData = formatSummaryData;
 
 
 /***/ }),
