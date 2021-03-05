@@ -4,7 +4,10 @@ author: 'bley'
 branding:
   icon: 'check-circle'
   color: 'green'
-
 runs:
   using: 'node12'
   main: 'dist/index.js'
+inputs:
+  token:
+    description: 'GITHUB_TOKEN'
+    required: true
