@@ -18,7 +18,7 @@ function buildSummary() {
 }
 
 async function run() {
-    const GITHUB_TOKEN = core.getInput('GITHUB_TOKEN')
+    const GITHUB_TOKEN = core.getInput('token', { required: true })
     const octokit = github.getOctokit(GITHUB_TOKEN)
 
     const { context } = github
