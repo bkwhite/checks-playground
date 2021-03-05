@@ -1,5 +1,17 @@
+import fs from 'fs'
+import path from 'path'
 import * as core from '@actions/core'
 import * as github from '@actions/github'
+
+import output from './static/output.json'
+import { formatSummaryData, buildSummaryData } from './summary'
+import { MochawesomeOutput } from './types'
+
+function buildSummary() {
+    return formatSummaryData(
+        buildSummaryData((output as unknown) as MochawesomeOutput)
+    )
+}
 
 async function run() {
     const GITHUB_TOKEN = core.getInput('GITHUB_TOKEN')
@@ -18,14 +30,23 @@ async function run() {
         `Creating a new Run on ${ownership.owner}/${ownership.repo}@${context.sha}`
     )
 
+    core.info(`Summary`)
+    core.info(buildSummary())
+
     const { data } = await octokit.checks.create({
         ...ownership,
         name: 'Soomo Check',
         head_sha: context.sha,
         details_url: 'https://soomolearning.com',
         // started_at: new Date().toISOString(),
-        // conclusion: 'success',
+        conclusion: 'success',
+        output: {
+            title: 'Check Output',
+            summary: buildSummary()
+        },
     })
+
+    core.info('DONE')
 
     core.info(JSON.stringify(data, null, 2))
 }
