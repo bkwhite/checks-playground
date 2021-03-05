@@ -1,4 +1,4 @@
-name: 'Soomo Check'
+name: 'Cypress Check'
 description: 'Add checks after cypress run'
 author: 'bley'
 

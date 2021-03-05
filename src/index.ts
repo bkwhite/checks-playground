@@ -3,13 +3,17 @@ import path from 'path'
 import * as core from '@actions/core'
 import * as github from '@actions/github'
 
-import output from './static/output.json'
 import { formatSummaryData, buildSummaryData } from './summary'
 import { MochawesomeOutput } from './types'
 
 function buildSummary() {
+    const outputJson = fs.readFileSync(
+        path.join(__dirname, '..', 'cypress', 'reports', 'output.json'),
+        'utf-8'
+    )
+
     return formatSummaryData(
-        buildSummaryData((output as unknown) as MochawesomeOutput)
+        buildSummaryData(JSON.parse(outputJson) as MochawesomeOutput)
     )
 }
 
@@ -42,7 +46,7 @@ async function run() {
         conclusion: 'success',
         output: {
             title: 'Check Output',
-            summary: buildSummary()
+            summary: buildSummary(),
         },
     })
 

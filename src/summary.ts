@@ -20,9 +20,9 @@ export function formatSummaryData(summaryData: TestSummary[]) {
     summaryData.forEach((d) => {
         document =
             `${document}` +
-            `- ${d.title} : ${d.conclusion.toLocaleUpperCase()} (${Math.floor(
+            `- **${d.title}**: ${d.conclusion.toLocaleUpperCase()} *(${Math.floor(
                 d.duration / 1000
-            )} seconds) \n`
+            )} seconds)* \n`
     })
 
     return document

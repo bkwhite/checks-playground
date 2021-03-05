@@ -1,4 +1,4 @@
-name: 'Soomo Check'
+name: 'Cypress Check'
 
 on: [push]
 
