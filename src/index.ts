@@ -1,8 +1,7 @@
 import * as core from '@actions/core'
 import * as github from '@actions/github'
-import { Octokit } from '@octokit/core'
 
-async function run_node() {
+async function run() {
     const GITHUB_TOKEN = core.getInput('GITHUB_TOKEN')
     const octokit = github.getOctokit(GITHUB_TOKEN)
 
@@ -18,34 +17,17 @@ async function run_node() {
     core.info(
         `Creating a new Run on ${ownership.owner}/${ownership.repo}@${context.sha}`
     )
+
     const { data } = await octokit.checks.create({
         ...ownership,
         name: 'Soomo Check',
         head_sha: context.sha,
         details_url: 'https://soomolearning.com',
-        started_at: new Date().toISOString(),
-        conclusion: 'success',
+        // started_at: new Date().toISOString(),
+        // conclusion: 'success',
     })
+
     core.info(JSON.stringify(data, null, 2))
-}
-
-async function run() {
-    const { context } = github
-    const GITHUB_TOKEN = core.getInput('GITHUB_TOKEN')
-    const octokit = new Octokit({ auth: GITHUB_TOKEN })
-
-    const ownership = {
-        owner: context.repo.owner,
-        repo: context.repo.repo,
-    }
-
-    await octokit.request(`POST /repos/${ownership.owner}/${ownership.repo}/check-runs`, {
-        owner: ownership.owner,
-        repo: ownership.repo,
-        name: 'Soomo Check',
-        head_sha: context.sha,
-        details_url: 'https://soomolearning.com',
-    })
 }
 
 run()
