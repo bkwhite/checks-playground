@@ -40,6 +40,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const fs_1 = __importDefault(__nccwpck_require__(747));
+const path_1 = __importDefault(__nccwpck_require__(622));
 const core = __importStar(__nccwpck_require__(186));
 const github = __importStar(__nccwpck_require__(438));
 function run() {
@@ -57,7 +58,7 @@ function run() {
             // started_at: new Date().toISOString(),
             conclusion: 'success', output: {
                 title: "Check Output",
-                summary: fs_1.default.readFileSync('summary.md', 'utf-8'),
+                summary: fs_1.default.readFileSync(path_1.default.join(__dirname, 'summary.md'), 'utf-8'),
             } }));
         core.info("DONE");
         core.info(JSON.stringify(data, null, 2));

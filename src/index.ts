@@ -1,4 +1,5 @@
 import fs from 'fs'
+import path from 'path'
 import * as core from '@actions/core'
 import * as github from '@actions/github'
 
@@ -28,7 +29,7 @@ async function run() {
         conclusion: 'success',
         output: {
             title: "Check Output",
-            summary: fs.readFileSync('summary.md', 'utf-8'),
+            summary: fs.readFileSync(path.join(__dirname, 'summary.md'), 'utf-8'),
         }
     })
 
