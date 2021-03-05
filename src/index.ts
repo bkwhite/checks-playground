@@ -24,7 +24,7 @@ async function run() {
         head_sha: context.sha,
         details_url: 'https://soomolearning.com',
         // started_at: new Date().toISOString(),
-        // conclusion: 'success',
+        conclusion: 'success',
     })
 
     core.info("DONE")

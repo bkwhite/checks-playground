@@ -49,7 +49,9 @@ function run() {
             repo: context.repo.repo,
         };
         core.info(`Creating a new Run on ${ownership.owner}/${ownership.repo}@${context.sha}`);
-        const { data } = yield octokit.checks.create(Object.assign(Object.assign({}, ownership), { name: 'Soomo Check', head_sha: context.sha, details_url: 'https://soomolearning.com' }));
+        const { data } = yield octokit.checks.create(Object.assign(Object.assign({}, ownership), { name: 'Soomo Check', head_sha: context.sha, details_url: 'https://soomolearning.com', 
+            // started_at: new Date().toISOString(),
+            conclusion: 'success' }));
         core.info("DONE");
         core.info(JSON.stringify(data, null, 2));
     });
