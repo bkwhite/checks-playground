@@ -27,6 +27,8 @@ async function run() {
         // conclusion: 'success',
     })
 
+    core.info("DONE")
+
     core.info(JSON.stringify(data, null, 2))
 }
 
