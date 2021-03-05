@@ -38,7 +38,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(186));
 const github = __importStar(__nccwpck_require__(438));
-function run() {
+const core_1 = __nccwpck_require__(762);
+function run_node() {
     return __awaiter(this, void 0, void 0, function* () {
         const GITHUB_TOKEN = core.getInput('GITHUB_TOKEN');
         const octokit = github.getOctokit(GITHUB_TOKEN);
@@ -48,17 +49,27 @@ function run() {
             owner: context.repo.owner,
             repo: context.repo.repo,
         };
-        if (core.getInput("name")) {
-            const id = core.getInput("check_id");
-            core.debug(`Updating a Run on ${ownership.owner}/${ownership.repo}@${context.sha} (${id})`);
-            const { data } = yield octokit.checks.update(Object.assign(Object.assign({}, ownership), { name: 'Soomo Check', head_sha: context.sha, details_url: 'https://soomolearning.com', conclusion: 'success' }));
-            core.info(JSON.stringify(data, null, 2));
-        }
-        else {
-            core.debug(`Creating a new Run on ${ownership.owner}/${ownership.repo}@${context.sha}`);
-            const { data } = yield octokit.checks.create(Object.assign(Object.assign({}, ownership), { name: 'Soomo Check', head_sha: context.sha, details_url: 'https://soomolearning.com', started_at: new Date().toISOString(), conclusion: 'action_required' }));
-            core.info(JSON.stringify(data, null, 2));
-        }
+        core.info(`Creating a new Run on ${ownership.owner}/${ownership.repo}@${context.sha}`);
+        const { data } = yield octokit.checks.create(Object.assign(Object.assign({}, ownership), { name: 'Soomo Check', head_sha: context.sha, details_url: 'https://soomolearning.com', started_at: new Date().toISOString(), conclusion: 'success' }));
+        core.info(JSON.stringify(data, null, 2));
+    });
+}
+function run() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { context } = github;
+        const GITHUB_TOKEN = core.getInput('GITHUB_TOKEN');
+        const octokit = new core_1.Octokit({ auth: GITHUB_TOKEN });
+        const ownership = {
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+        };
+        yield octokit.request(`POST /repos/${ownership.owner}/${ownership.repo}/check-runs`, {
+            owner: ownership.owner,
+            repo: ownership.repo,
+            name: 'Soomo Check',
+            head_sha: context.sha,
+            details_url: 'https://soomolearning.com',
+        });
     });
 }
 run();
