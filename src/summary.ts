@@ -1,13 +1,22 @@
 import { MochawesomeOutput, TestSummary } from './types'
 
-export function buildSummaryData(cypressOutput: MochawesomeOutput) {
+export function buildSummaryData(
+    cypressOutput: MochawesomeOutput,
+    videoUrls: string[]
+) {
     return cypressOutput.results.reduce<TestSummary[]>((accum, r) => {
         return [
             ...accum,
             ...r.suites.map<TestSummary>((s) => {
-                const featureFile = r.fullFile.match(/([\w+\.*]+)\.feature/)
+                const featureFileMatch = r.fullFile.match(
+                    /([\w+\.*]+)\.feature/
+                )
+                const featureFile = featureFileMatch ? featureFileMatch[0] : ''
                 return {
-                    featureFile: featureFile ? featureFile[0] : '',
+                    featureFile: featureFile,
+                    videoUrl: videoUrls.find((url) =>
+                        url.includes(featureFile)
+                    ),
                     title: s.title,
                     pass: s.failures.length > 0 ? false : true,
                     duration: Math.round(s.duration / 1000),
@@ -26,7 +35,9 @@ export function formatSummaryData(summaryData: TestSummary[]) {
     let document = '# Test Results\n'
 
     summaryData.forEach((d) => {
-        document += `## 📃 ${d.featureFile}\n`
+        document += `## 📃 ${d.featureFile} ${
+            d.videoUrl ? `([screen recording](${d.videoUrl}))` : ''
+        }\n`
         document += `### ${d.pass ? `✅` : `❌`} ${d.title} (${
             d.duration
         }s ⏱️)\n`

@@ -9,7 +9,6 @@ interface FileObject {
 
 function getFiles(dir: string, fileList: FileObject[] = []) {
     const files = fs.readdirSync(dir)
-
     files.forEach((file) => {
         const filePath = `${dir}/${file}`
         if (['.gitkeep', '.Trash-0'].indexOf(file) === -1) {
@@ -25,11 +24,10 @@ function getFiles(dir: string, fileList: FileObject[] = []) {
             }
         }
     })
-
     return fileList
 }
 
-export function uploadVideos(config: {
+export async function uploadVideos(config: {
     VIDEO_FOLDER: string
     FOLDER_IN_BUCKET: string
     BUCKET_NAME: string
@@ -53,18 +51,27 @@ export function uploadVideos(config: {
             ContentType: `image/${type}`,
         }
 
-        s3.upload(params, {}, (err, data) => {
-            if (err) console.error(err)
-            console.log(data)
-        })
+        return s3.upload(params)
     }
 
-    videos.forEach((videoObject) => {
-        fs.readFile(videoObject.path, (err, data) => {
-            if (err) {
-                throw err
-            }
-            uploadToS3(data, videoObject.name, videoObject.type)
+    return Promise.all(
+        videos.map((videoObject) => {
+            return new Promise<AWS.S3.ManagedUpload.SendData>(
+                (resolve, reject) => {
+                    fs.readFile(videoObject.path, async (err, data) => {
+                        if (err) {
+                            reject(err)
+                        }
+                        resolve(
+                            uploadToS3(
+                                data,
+                                videoObject.name,
+                                videoObject.type
+                            ).promise()
+                        )
+                    })
+                }
+            ).then((v) => v.Location)
         })
-    })
+    )
 }

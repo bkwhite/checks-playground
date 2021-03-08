@@ -1,5 +1,6 @@
 export interface TestSummary {
     featureFile?: string
+    videoUrl?: string
     title: string
     pass: boolean
     duration: number

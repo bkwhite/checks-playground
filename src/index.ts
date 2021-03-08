@@ -7,11 +7,11 @@ import { formatSummaryData, buildSummaryData } from './summary'
 import { MochawesomeOutput } from './types'
 import { uploadVideos } from './utils/uploadToS3'
 
-function buildSummary(outputFilePath: string) {
+function buildSummary(outputFilePath: string, videoUrls: string[]) {
     const outputJson = fs.readFileSync(path.join(outputFilePath), 'utf-8')
 
     return formatSummaryData(
-        buildSummaryData(JSON.parse(outputJson) as MochawesomeOutput)
+        buildSummaryData(JSON.parse(outputJson) as MochawesomeOutput, videoUrls)
     )
 }
 
@@ -22,26 +22,15 @@ async function run() {
     const BRANCH_NAME = core.getInput('BRANCH_NAME')
     const AWS_ACCESS_ID = core.getInput('AWS_ACCESS_ID')
     const AWS_SECRET_KEY = core.getInput('AWS_SECRET_KEY')
-
     const octokit = github.getOctokit(GITHUB_TOKEN)
 
     const { context } = github
-    const { repository } = context.payload
     const ownership = {
         owner: context.repo.owner,
         repo: context.repo.repo,
     }
 
-    core.info(
-        `Creating a new Run on ${ownership.owner}/${ownership.repo}@${context.sha}`
-    )
-
-    core.info(`Summary`)
-    core.info(buildSummary(`${CYPRESS_FOLDER}/reports/output.json`))
-
-    core.info('FOLDER NAME: ' + BRANCH_NAME)
-
-    uploadVideos({
+    const videoUrls = await uploadVideos({
         VIDEO_FOLDER: `${CYPRESS_FOLDER}/videos`,
         FOLDER_IN_BUCKET: BRANCH_NAME,
         BUCKET_NAME,
@@ -58,7 +47,7 @@ async function run() {
         conclusion: 'success',
         output: {
             title: 'Check Output',
-            summary: buildSummary(`${CYPRESS_FOLDER}/reports/output.json`),
+            summary: buildSummary(`${CYPRESS_FOLDER}/reports/output.json`, videoUrls),
         },
     })
 
