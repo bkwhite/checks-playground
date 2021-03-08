@@ -16,7 +16,7 @@ function buildSummary(outputFilePath: string) {
 
 async function run() {
     const GITHUB_TOKEN = core.getInput('token', { required: true })
-    const CYPRESS_OUTPUT = core.getInput('cypress_output', { required: true })
+    const CYPRESS_FOLDER = core.getInput('cypress_folder', { required: true })
     const octokit = github.getOctokit(GITHUB_TOKEN)
 
     const { context } = github
@@ -31,7 +31,7 @@ async function run() {
     )
 
     core.info(`Summary`)
-    core.info(buildSummary(CYPRESS_OUTPUT))
+    core.info(buildSummary(`${CYPRESS_FOLDER}/reports/output.json`))
 
     const { data } = await octokit.checks.create({
         ...ownership,
@@ -42,7 +42,7 @@ async function run() {
         conclusion: 'success',
         output: {
             title: 'Check Output',
-            summary: buildSummary(CYPRESS_OUTPUT),
+            summary: buildSummary(`${CYPRESS_FOLDER}/reports/output.json`),
         },
     })
 

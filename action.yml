@@ -11,6 +11,9 @@ inputs:
   token:
     description: 'GITHUB_TOKEN'
     required: true
-  cypress_output:
-    description: 'output.json'
+  cypress_folder:
+    description: 'contains reports & other output'
+    required: true
+  s3_url:
+    description: 'S3 url for videos'
     required: true
