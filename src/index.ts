@@ -14,12 +14,10 @@ function buildSummary(
 ) {
     const outputJson = fs.readFileSync(path.join(outputFilePath), 'utf-8')
 
-    return formatSummaryData(
-        buildSummaryData(
-            JSON.parse(outputJson) as MochawesomeOutput,
-            videoUrls,
-            screenshotUrls
-        )
+    return buildSummaryData(
+        JSON.parse(outputJson) as MochawesomeOutput,
+        videoUrls,
+        screenshotUrls
     )
 }
 
@@ -54,20 +52,31 @@ async function run() {
         AWS_SECRET_KEY,
     })
 
+    const summary = buildSummary(
+        `${CYPRESS_FOLDER}/reports/output.json`,
+        videoUrls,
+        screenshotUrls
+    )
+
+    const conclusion = summary.reduce((result, current) => {
+        if (!current.pass) {
+            result = false
+        }
+        return result
+    }, true)
+
+    core.info('CONCLUSION: ' + conclusion)
+
     const { data } = await octokit.checks.create({
         ...ownership,
         name: 'Soomo Check',
         head_sha: context.sha,
         details_url: 'https://soomolearning.com',
         // started_at: new Date().toISOString(),
-        conclusion: 'success',
+        conclusion: conclusion ? 'success' : 'failure',
         output: {
             title: 'Check Output',
-            summary: buildSummary(
-                `${CYPRESS_FOLDER}/reports/output.json`,
-                videoUrls,
-                screenshotUrls
-            ),
+            summary: formatSummaryData(summary),
         },
     })
 
