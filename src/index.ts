@@ -39,6 +39,8 @@ async function run() {
     core.info(`Summary`)
     core.info(buildSummary(`${CYPRESS_FOLDER}/reports/output.json`))
 
+    core.info('FOLDER NAME: ' + BRANCH_NAME)
+
     uploadVideos({
         VIDEO_FOLDER: `${CYPRESS_FOLDER}/videos`,
         FOLDER_IN_BUCKET: BRANCH_NAME,
