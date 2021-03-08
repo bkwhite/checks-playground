@@ -19,6 +19,7 @@ async function run() {
     const GITHUB_TOKEN = core.getInput('token', { required: true })
     const CYPRESS_FOLDER = core.getInput('cypress_folder', { required: true })
     const BUCKET_NAME = core.getInput('BUCKET_NAME')
+    const BRANCH_NAME = core.getInput('BRANCH_NAME')
     const AWS_ACCESS_ID = core.getInput('AWS_ACCESS_ID')
     const AWS_SECRET_KEY = core.getInput('AWS_SECRET_KEY')
 
@@ -40,7 +41,7 @@ async function run() {
 
     uploadVideos({
         VIDEO_FOLDER: `${CYPRESS_FOLDER}/videos`,
-        PULL_REQUEST_NUMBER: String(context.payload.pull_request?.number),
+        FOLDER_IN_BUCKET: BRANCH_NAME,
         BUCKET_NAME,
         AWS_ACCESS_ID,
         AWS_SECRET_KEY,

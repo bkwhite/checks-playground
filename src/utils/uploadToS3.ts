@@ -31,7 +31,7 @@ function getFiles(dir: string, fileList: FileObject[] = []) {
 
 export function uploadVideos(config: {
     VIDEO_FOLDER: string
-    PULL_REQUEST_NUMBER: string
+    FOLDER_IN_BUCKET: string
     BUCKET_NAME: string
     AWS_ACCESS_ID: string
     AWS_SECRET_KEY: string
@@ -47,7 +47,7 @@ export function uploadVideos(config: {
 
         const params = {
             Bucket: String(config.BUCKET_NAME),
-            Key: `notebook/${config.PULL_REQUEST_NUMBER}/${name}`,
+            Key: `notebook/${config.FOLDER_IN_BUCKET}/${name}`,
             Body: file,
             ACL: 'public-read',
             ContentType: `image/${type}`,

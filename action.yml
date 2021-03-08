@@ -1,26 +1,28 @@
-name: 'Cypress Check'
-description: 'Add checks after cypress run'
-author: 'bley'
+name: "Cypress Check"
+description: "Add checks after cypress run"
+author: "bley"
 branding:
-  icon: 'check-circle'
-  color: 'green'
+  icon: "check-circle"
+  color: "green"
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: "node12"
+  main: "dist/index.js"
 inputs:
   token:
-    description: 'GITHUB_TOKEN'
+    description: "GITHUB_TOKEN"
     required: true
   cypress_folder:
-    description: 'contains reports & other output'
+    description: "contains reports & other output"
+    required: true
+  BRANCH_NAME:
+    description: "Branch name"
     required: true
   BUCKET_NAME:
-    description: 'S3 Bucket Name'
+    description: "S3 Bucket Name"
     required: true
   AWS_ACCESS_ID:
-    description: 'AWS Access ID'
+    description: "AWS Access ID"
     required: true
   AWS_SECRET_KEY:
-    description: 'AWS Secret Key'
+    description: "AWS Secret Key"
     required: true
-  
