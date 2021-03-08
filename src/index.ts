@@ -5,6 +5,7 @@ import * as github from '@actions/github'
 
 import { formatSummaryData, buildSummaryData } from './summary'
 import { MochawesomeOutput } from './types'
+import { uploadVideos } from './utils/uploadToS3'
 
 function buildSummary(outputFilePath: string) {
     const outputJson = fs.readFileSync(path.join(outputFilePath), 'utf-8')
@@ -17,6 +18,10 @@ function buildSummary(outputFilePath: string) {
 async function run() {
     const GITHUB_TOKEN = core.getInput('token', { required: true })
     const CYPRESS_FOLDER = core.getInput('cypress_folder', { required: true })
+    const BUCKET_NAME = core.getInput('BUCKET_NAME')
+    const AWS_ACCESS_ID = core.getInput('AWS_ACCESS_ID')
+    const AWS_SECRET_KEY = core.getInput('AWS_SECRET_KEY')
+
     const octokit = github.getOctokit(GITHUB_TOKEN)
 
     const { context } = github
@@ -32,6 +37,14 @@ async function run() {
 
     core.info(`Summary`)
     core.info(buildSummary(`${CYPRESS_FOLDER}/reports/output.json`))
+
+    uploadVideos({
+        VIDEO_FOLDER: `${CYPRESS_FOLDER}/videos`,
+        PULL_REQUEST_NUMBER: String(context.payload.pull_request?.number),
+        BUCKET_NAME,
+        AWS_ACCESS_ID,
+        AWS_SECRET_KEY,
+    })
 
     const { data } = await octokit.checks.create({
         ...ownership,

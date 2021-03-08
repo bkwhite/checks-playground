@@ -14,6 +14,13 @@ inputs:
   cypress_folder:
     description: 'contains reports & other output'
     required: true
-  s3_url:
-    description: 'S3 url for videos'
+  BUCKET_NAME:
+    description: 'S3 Bucket Name'
     required: true
+  AWS_ACCESS_ID:
+    description: 'AWS Access ID'
+    required: true
+  AWS_SECRET_KEY:
+    description: 'AWS Secret Key'
+    required: true
+  
