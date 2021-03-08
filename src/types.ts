@@ -1,7 +1,9 @@
 export interface TestSummary {
+    featureFile?: string
     title: string
-    conclusion: 'pass' | 'fail'
+    pass: boolean
     duration: number
+    steps?: TestSummary[]
 }
 
 export interface MochawesomeTest {

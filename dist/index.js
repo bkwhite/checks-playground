@@ -88,25 +88,52 @@ function buildSummaryData(cypressOutput) {
     return cypressOutput.results.reduce((accum, r) => {
         return [
             ...accum,
-            ...r.suites.map((s) => ({
-                title: s.title,
-                conclusion: s.failures.length > 0 ? 'fail' : 'pass',
-                duration: s.duration,
-            })),
+            ...r.suites.map((s) => {
+                const featureFile = r.fullFile.match(/([\w+\.*]+)\.feature/);
+                return {
+                    featureFile: featureFile ? featureFile[0] : '',
+                    title: s.title,
+                    pass: s.failures.length > 0 ? false : true,
+                    duration: Math.round(s.duration / 1000),
+                    steps: s.tests.map((s) => ({
+                        title: s.title,
+                        pass: s.pass,
+                        duration: Math.round(s.duration / 1000),
+                    })),
+                };
+            }),
         ];
     }, []);
 }
 exports.buildSummaryData = buildSummaryData;
 function formatSummaryData(summaryData) {
-    let document = '### Test Results\n';
+    let document = '# Test Results\n';
     summaryData.forEach((d) => {
-        document =
-            `${document}` +
-                `- **${d.title}**: ${d.conclusion.toLocaleUpperCase()} *(${Math.floor(d.duration / 1000)} seconds)* \n`;
+        var _a;
+        document += `## 📃 ${d.featureFile}\n`;
+        document += `### ${d.pass ? `✅` : `❌`} ${d.title} (${d.duration}s ⏱️)\n`;
+        (_a = d.steps) === null || _a === void 0 ? void 0 : _a.forEach((s) => {
+            document += `- ${s.pass ? `✅` : `❌`} ${s.title}\n`;
+        });
     });
     return document;
 }
 exports.formatSummaryData = formatSummaryData;
+/*
+function buildSummary(outputFilePath: string) {
+    const outputJson = fs.readFileSync(path.join(outputFilePath), 'utf-8')
+
+    return formatSummaryData(
+        buildSummaryData(JSON.parse(outputJson) as MochawesomeOutput)
+    )
+}
+
+console.log(
+    buildSummary(
+        path.join(__dirname, '..', 'cypress', 'reports', 'output.json')
+    )
+)
+*/
 
 
 /***/ }),
