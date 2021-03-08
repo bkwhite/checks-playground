@@ -11,3 +11,6 @@ inputs:
   token:
     description: 'GITHUB_TOKEN'
     required: true
+  cypress_output:
+    description: 'output.json'
+    required: true

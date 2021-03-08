@@ -19,7 +19,10 @@ function buildSummary() {
 
 async function run() {
     const GITHUB_TOKEN = core.getInput('token', { required: true })
+    const CYPRESS_OUTPUT = core.getInput('cypress_output', { required: true })
     const octokit = github.getOctokit(GITHUB_TOKEN)
+
+    core.info(`Cypress Output: ${CYPRESS_OUTPUT}`)
 
     const { context } = github
 
