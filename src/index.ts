@@ -6,11 +6,8 @@ import * as github from '@actions/github'
 import { formatSummaryData, buildSummaryData } from './summary'
 import { MochawesomeOutput } from './types'
 
-function buildSummary() {
-    const outputJson = fs.readFileSync(
-        path.join(__dirname, '..', 'cypress', 'reports', 'output.json'),
-        'utf-8'
-    )
+function buildSummary(outputFilePath: string) {
+    const outputJson = fs.readFileSync(path.join(outputFilePath), 'utf-8')
 
     return formatSummaryData(
         buildSummaryData(JSON.parse(outputJson) as MochawesomeOutput)
@@ -22,12 +19,8 @@ async function run() {
     const CYPRESS_OUTPUT = core.getInput('cypress_output', { required: true })
     const octokit = github.getOctokit(GITHUB_TOKEN)
 
-    core.info(`Cypress Output: ${CYPRESS_OUTPUT}`)
-
     const { context } = github
-
     const { repository } = context.payload
-
     const ownership = {
         owner: context.repo.owner,
         repo: context.repo.repo,
@@ -38,7 +31,7 @@ async function run() {
     )
 
     core.info(`Summary`)
-    core.info(buildSummary())
+    core.info(buildSummary(CYPRESS_OUTPUT))
 
     const { data } = await octokit.checks.create({
         ...ownership,
@@ -49,7 +42,7 @@ async function run() {
         conclusion: 'success',
         output: {
             title: 'Check Output',
-            summary: buildSummary(),
+            summary: buildSummary(CYPRESS_OUTPUT),
         },
     })
 

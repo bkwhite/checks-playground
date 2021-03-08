@@ -44,13 +44,14 @@ const path_1 = __importDefault(__nccwpck_require__(622));
 const core = __importStar(__nccwpck_require__(186));
 const github = __importStar(__nccwpck_require__(438));
 const summary_1 = __nccwpck_require__(608);
-function buildSummary() {
-    const outputJson = fs_1.default.readFileSync(path_1.default.join(__dirname, '..', 'cypress', 'reports', 'output.json'), 'utf-8');
+function buildSummary(outputFilePath) {
+    const outputJson = fs_1.default.readFileSync(path_1.default.join(outputFilePath), 'utf-8');
     return summary_1.formatSummaryData(summary_1.buildSummaryData(JSON.parse(outputJson)));
 }
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         const GITHUB_TOKEN = core.getInput('token', { required: true });
+        const CYPRESS_OUTPUT = core.getInput('cypress_output', { required: true });
         const octokit = github.getOctokit(GITHUB_TOKEN);
         const { context } = github;
         const { repository } = context.payload;
@@ -60,12 +61,12 @@ function run() {
         };
         core.info(`Creating a new Run on ${ownership.owner}/${ownership.repo}@${context.sha}`);
         core.info(`Summary`);
-        core.info(buildSummary());
+        core.info(buildSummary(CYPRESS_OUTPUT));
         const { data } = yield octokit.checks.create(Object.assign(Object.assign({}, ownership), { name: 'Soomo Check', head_sha: context.sha, details_url: 'https://soomolearning.com', 
             // started_at: new Date().toISOString(),
             conclusion: 'success', output: {
                 title: 'Check Output',
-                summary: buildSummary(),
+                summary: buildSummary(CYPRESS_OUTPUT),
             } }));
         core.info('DONE');
         core.info(JSON.stringify(data, null, 2));
