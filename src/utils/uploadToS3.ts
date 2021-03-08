@@ -27,15 +27,15 @@ function getFiles(dir: string, fileList: FileObject[] = []) {
     return fileList
 }
 
-export async function uploadVideos(config: {
-    VIDEO_FOLDER: string
+export async function uploadFolder(config: {
+    LOCAL_FOLDER: string
     FOLDER_IN_BUCKET: string
     BUCKET_NAME: string
     AWS_ACCESS_ID: string
     AWS_SECRET_KEY: string
 }) {
-    const videosDir = config.VIDEO_FOLDER
-    const videos = getFiles(videosDir, [])
+    const localDir = config.LOCAL_FOLDER
+    const files = getFiles(localDir, [])
 
     const uploadToS3 = (file: Buffer, name: string, type: string) => {
         const s3 = new AWS.S3({
@@ -55,18 +55,18 @@ export async function uploadVideos(config: {
     }
 
     return Promise.all(
-        videos.map((videoObject) => {
+        files.map((fileObject) => {
             return new Promise<AWS.S3.ManagedUpload.SendData>(
                 (resolve, reject) => {
-                    fs.readFile(videoObject.path, async (err, data) => {
+                    fs.readFile(fileObject.path, async (err, data) => {
                         if (err) {
                             reject(err)
                         }
                         resolve(
                             uploadToS3(
                                 data,
-                                videoObject.name,
-                                videoObject.type
+                                fileObject.name,
+                                fileObject.type
                             ).promise()
                         )
                     })

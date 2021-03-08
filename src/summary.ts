@@ -2,7 +2,8 @@ import { MochawesomeOutput, TestSummary } from './types'
 
 export function buildSummaryData(
     cypressOutput: MochawesomeOutput,
-    videoUrls: string[]
+    videoUrls: string[],
+    screenshotUrls: string[]
 ) {
     return cypressOutput.results.reduce<TestSummary[]>((accum, r) => {
         return [
@@ -24,6 +25,11 @@ export function buildSummaryData(
                         title: s.title,
                         pass: s.pass,
                         duration: Math.round(s.duration / 1000),
+                        screenshotUrl: !s.pass
+                            ? screenshotUrls.find((url) =>
+                                  decodeURI(url).includes(s.title)
+                              )
+                            : '',
                     })),
                 }
             }),
@@ -42,7 +48,10 @@ export function formatSummaryData(summaryData: TestSummary[]) {
             d.duration
         }s ⏱️)\n`
         d.steps?.forEach((s) => {
-            document += `- ${s.pass ? `✅` : `❌`} ${s.title}\n`
+            document += `- ${s.pass ? `✅` : `❌`} ${s.title} ${
+                !s.pass ? `[(screenshot)](${s.screenshotUrl})` : ''
+            }\n`
+            document += !s.pass ? `![enter image description here](${s.screenshotUrl})\n` : ''
         })
     })
 
@@ -50,11 +59,17 @@ export function formatSummaryData(summaryData: TestSummary[]) {
 }
 
 /*
+const fs = require('fs')
+const path = require('path')
+
 function buildSummary(outputFilePath: string) {
     const outputJson = fs.readFileSync(path.join(outputFilePath), 'utf-8')
 
     return formatSummaryData(
-        buildSummaryData(JSON.parse(outputJson) as MochawesomeOutput)
+        buildSummaryData(
+            JSON.parse(outputJson) as MochawesomeOutput,
+            [],
+        )
     )
 }
 

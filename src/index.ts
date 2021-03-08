@@ -5,13 +5,21 @@ import * as github from '@actions/github'
 
 import { formatSummaryData, buildSummaryData } from './summary'
 import { MochawesomeOutput } from './types'
-import { uploadVideos } from './utils/uploadToS3'
+import { uploadFolder } from './utils/uploadToS3'
 
-function buildSummary(outputFilePath: string, videoUrls: string[]) {
+function buildSummary(
+    outputFilePath: string,
+    videoUrls: string[],
+    screenshotUrls: string[]
+) {
     const outputJson = fs.readFileSync(path.join(outputFilePath), 'utf-8')
 
     return formatSummaryData(
-        buildSummaryData(JSON.parse(outputJson) as MochawesomeOutput, videoUrls)
+        buildSummaryData(
+            JSON.parse(outputJson) as MochawesomeOutput,
+            videoUrls,
+            screenshotUrls
+        )
     )
 }
 
@@ -30,9 +38,17 @@ async function run() {
         repo: context.repo.repo,
     }
 
-    const videoUrls = await uploadVideos({
-        VIDEO_FOLDER: `${CYPRESS_FOLDER}/videos`,
-        FOLDER_IN_BUCKET: BRANCH_NAME,
+    const videoUrls = await uploadFolder({
+        LOCAL_FOLDER: `${CYPRESS_FOLDER}/videos`,
+        FOLDER_IN_BUCKET: `${BRANCH_NAME}/videos`,
+        BUCKET_NAME,
+        AWS_ACCESS_ID,
+        AWS_SECRET_KEY,
+    })
+
+    const screenshotUrls = await uploadFolder({
+        LOCAL_FOLDER: `${CYPRESS_FOLDER}/screenshots`,
+        FOLDER_IN_BUCKET: `${BRANCH_NAME}/screenshots`,
         BUCKET_NAME,
         AWS_ACCESS_ID,
         AWS_SECRET_KEY,
@@ -47,7 +63,11 @@ async function run() {
         conclusion: 'success',
         output: {
             title: 'Check Output',
-            summary: buildSummary(`${CYPRESS_FOLDER}/reports/output.json`, videoUrls),
+            summary: buildSummary(
+                `${CYPRESS_FOLDER}/reports/output.json`,
+                videoUrls,
+                screenshotUrls
+            ),
         },
     })
 
