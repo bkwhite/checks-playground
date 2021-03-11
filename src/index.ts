@@ -6,6 +6,7 @@ import * as github from '@actions/github'
 import { formatSummaryData, buildSummaryData } from './summary'
 import { MochawesomeOutput } from './types'
 import { uploadFolder } from './utils/uploadToS3'
+import { cucumberToAnnotations } from './utils/cucumberToAnnotation'
 
 function buildSummary(
     outputFilePath: string,
@@ -67,16 +68,20 @@ async function run() {
 
     core.info('CONCLUSION: ' + conclusion)
 
+    const annotations = cucumberToAnnotations(`${CYPRESS_FOLDER}/cucumber-json`)
+
+    core.info(JSON.stringify(annotations, null, 2))
+
     const { data } = await octokit.checks.create({
         ...ownership,
         name: 'Soomo Check',
         head_sha: context.sha,
         details_url: 'https://soomolearning.com',
-        // started_at: new Date().toISOString(),
         conclusion: conclusion ? 'success' : 'failure',
         output: {
             title: 'Check Output',
             summary: formatSummaryData(summary),
+            annotations
         },
     })
 

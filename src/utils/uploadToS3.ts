@@ -7,7 +7,7 @@ interface FileObject {
     type: string
 }
 
-function getFiles(dir: string, fileList: FileObject[] = []) {
+export function getFiles(dir: string, fileList: FileObject[] = []) {
     const files = fs.readdirSync(dir)
     files.forEach((file) => {
         const filePath = `${dir}/${file}`
