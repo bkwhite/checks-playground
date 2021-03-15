@@ -74,7 +74,7 @@ async function run() {
 
     const { data: checkSuites } = await octokit.checks.listSuitesForRef({
         ...ownership,
-        ref: BRANCH_NAME,
+        ref: context.sha,
     })
 
     core.info(`Check Suite Count: ${checkSuites.total_count}`)
@@ -96,8 +96,6 @@ async function run() {
     })
 
     core.info('DONE')
-
-    core.info(JSON.stringify(data, null, 2))
 }
 
 run()
