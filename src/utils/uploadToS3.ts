@@ -8,6 +8,10 @@ interface FileObject {
 }
 
 export function getFiles(dir: string, fileList: FileObject[] = []) {
+    if (!fs.existsSync(dir)) {
+        return []
+    }
+
     const files = fs.readdirSync(dir)
     files.forEach((file) => {
         const filePath = `${dir}/${file}`
