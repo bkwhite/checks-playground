@@ -50,6 +50,9 @@ async function run() {
         BUCKET_NAME,
         AWS_ACCESS_ID,
         AWS_SECRET_KEY,
+    }).catch(e => {
+        core.info("PROBLEM UPLOADING VIDEOS")
+        core.error(e)
     })
 
     const screenshotUrls = await uploadFolder({
@@ -62,8 +65,8 @@ async function run() {
 
     const summary = buildSummary(
         `${CYPRESS_FOLDER}/reports/output.json`,
-        videoUrls,
-        screenshotUrls
+        videoUrls || [],
+        screenshotUrls || []
     )
 
     const conclusion = summary.reduce((result, current) => {

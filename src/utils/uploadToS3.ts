@@ -75,7 +75,11 @@ export async function uploadFolder(config: {
                         )
                     })
                 }
-            ).then((v) => v.Location)
+            )
+                .then((v) => v.Location)
+                .catch((e) => {
+                    throw e
+                })
         })
     )
 }
