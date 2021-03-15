@@ -22,11 +22,14 @@ function buildSummary(
     )
 }
 
+const ACTION_NAME = 'cypress-check'
+
 async function run() {
     const GITHUB_TOKEN = core.getInput('token', { required: true })
     const CYPRESS_FOLDER = core.getInput('cypress_folder', { required: true })
     const BUCKET_NAME = core.getInput('BUCKET_NAME')
     const BRANCH_NAME = core.getInput('BRANCH_NAME')
+    const PROJECT_NAME = core.getInput('PROJECT_NAME')
     const AWS_ACCESS_ID = core.getInput('AWS_ACCESS_ID')
     const AWS_SECRET_KEY = core.getInput('AWS_SECRET_KEY')
     const octokit = github.getOctokit(GITHUB_TOKEN)
@@ -34,12 +37,14 @@ async function run() {
     const { context } = github
     const ownership = {
         owner: context.repo.owner,
-        repo: context.repo.repo,
+        repo: context.repo.repo
     }
+
+    const FOLDER_IN_BUCKET = `${PROJECT_NAME}/actions/${ACTION_NAME}/commits/${context.sha}`
 
     const videoUrls = await uploadFolder({
         LOCAL_FOLDER: `${CYPRESS_FOLDER}/videos`,
-        FOLDER_IN_BUCKET: `${BRANCH_NAME}/videos`,
+        FOLDER_IN_BUCKET: `${FOLDER_IN_BUCKET}/videos`,
         BUCKET_NAME,
         AWS_ACCESS_ID,
         AWS_SECRET_KEY,
@@ -47,7 +52,7 @@ async function run() {
 
     const screenshotUrls = await uploadFolder({
         LOCAL_FOLDER: `${CYPRESS_FOLDER}/screenshots`,
-        FOLDER_IN_BUCKET: `${BRANCH_NAME}/screenshots`,
+        FOLDER_IN_BUCKET: `${FOLDER_IN_BUCKET}/screenshots`,
         BUCKET_NAME,
         AWS_ACCESS_ID,
         AWS_SECRET_KEY,
@@ -67,29 +72,6 @@ async function run() {
     }, true)
 
     const annotations = cucumberToAnnotations(`${CYPRESS_FOLDER}/cucumber-json`)
-
-    const { data: checkRuns } = await octokit.checks.listForRef({
-        ...ownership,
-        ref: context.sha
-    })
-
-    const checkRun = checkRuns.check_runs.find(cr => cr.name === 'cypress-run')
-
-    const {data: updateResult } = await octokit.checks.update({
-        ...ownership,
-        check_run_id: checkRun?.id,
-        name: `cypress-run-updated`,
-        details_url: 'https://soomolearning.com',
-        conclusion: conclusion ? 'success' : 'failure',
-        output: {
-            title: 'Check Output',
-            summary: formatSummaryData(summary),
-            annotations,
-        },
-    })
-
-    core.info(`Update result`)
-    core.info(JSON.stringify(updateResult, null, 2))
 
     const { data } = await octokit.checks.create({
         ...ownership,

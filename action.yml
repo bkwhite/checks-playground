@@ -17,6 +17,9 @@ inputs:
   BRANCH_NAME:
     description: "Branch name"
     required: true
+  PROJECT_NAME:
+    description: "Github Project Name"
+    required: true
   BUCKET_NAME:
     description: "S3 Bucket Name"
     required: true
