@@ -42,6 +42,8 @@ async function run() {
 
     const FOLDER_IN_BUCKET = `${PROJECT_NAME}/actions/${ACTION_NAME}/commits/${context.sha}`
 
+    core.info(`FOLDER IN BUCKET: ${FOLDER_IN_BUCKET}`)
+
     const videoUrls = await uploadFolder({
         LOCAL_FOLDER: `${CYPRESS_FOLDER}/videos`,
         FOLDER_IN_BUCKET: `${FOLDER_IN_BUCKET}/videos`,
