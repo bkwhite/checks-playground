@@ -49,7 +49,7 @@ export async function uploadFolder(config: {
 
         const params = {
             Bucket: String(config.BUCKET_NAME),
-            Key: `notebook/${config.FOLDER_IN_BUCKET}/${name}`,
+            Key: `${config.FOLDER_IN_BUCKET}/${name}`,
             Body: file,
             ACL: 'public-read',
             ContentType: `image/${type}`,
