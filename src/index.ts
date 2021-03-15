@@ -72,6 +72,16 @@ async function run() {
 
     core.info(JSON.stringify(annotations, null, 2))
 
+    const { data: checkSuites } = await octokit.checks.listSuitesForRef({
+        ...ownership,
+        ref: BRANCH_NAME,
+    })
+
+    core.info(`Check Suite Count: ${checkSuites.total_count}`)
+    checkSuites.check_suites.forEach(cs => {
+        core.info(`Check Suite ID: ${cs.id}`)
+    })
+
     const { data } = await octokit.checks.create({
         ...ownership,
         name: 'Soomo Check',
@@ -81,7 +91,7 @@ async function run() {
         output: {
             title: 'Check Output',
             summary: formatSummaryData(summary),
-            annotations
+            annotations,
         },
     })
 

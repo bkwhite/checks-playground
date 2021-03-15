@@ -38,13 +38,13 @@ export function buildSummaryData(
 }
 
 export function formatSummaryData(summaryData: TestSummary[]) {
-    let document = '# Test Results\n'
+    let document = '## Test Results\n'
 
     summaryData.forEach((d) => {
-        document += `## 📃 ${d.featureFile} ${
+        document += `### 📃 ${d.featureFile} ${
             d.videoUrl ? `([screen recording](${d.videoUrl}))` : ''
         }\n`
-        document += `### ${d.pass ? `✅` : `❌`} ${d.title} (${
+        document += `#### ${d.pass ? `✅` : `❌`} ${d.title} (${
             d.duration
         }s ⏱️)\n`
         d.steps?.forEach((s) => {
