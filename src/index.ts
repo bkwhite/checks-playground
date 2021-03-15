@@ -66,20 +66,18 @@ async function run() {
         return result
     }, true)
 
-    core.info('CONCLUSION: ' + conclusion)
-
     const annotations = cucumberToAnnotations(`${CYPRESS_FOLDER}/cucumber-json`)
 
-    core.info(JSON.stringify(annotations, null, 2))
-
-    const { data: checkSuites } = await octokit.checks.listSuitesForRef({
+    const { data: checkRuns } = await octokit.checks.listForRef({
         ...ownership,
-        ref: context.sha,
+        ref: context.sha
     })
 
-    core.info(`Check Suite Count: ${checkSuites.total_count}`)
-    checkSuites.check_suites.forEach(cs => {
-        core.info(`Check Suite ID: ${cs.id}`)
+    core.info(`Check Count: ${checkRuns.total_count}`)
+    checkRuns.check_runs.forEach(cr => {
+        core.info(`Check ID: ${cr.id}`)
+        core.info(`url: ${cr.url}`)
+        core.info(`name: ${cr.name}`)
     })
 
     const { data } = await octokit.checks.create({
