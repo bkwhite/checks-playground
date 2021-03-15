@@ -73,12 +73,23 @@ async function run() {
         ref: context.sha
     })
 
-    core.info(`Check Count: ${checkRuns.total_count}`)
-    checkRuns.check_runs.forEach(cr => {
-        core.info(`Check ID: ${cr.id}`)
-        core.info(`url: ${cr.url}`)
-        core.info(`name: ${cr.name}`)
+    const checkRun = checkRuns.check_runs.find(cr => cr.name === 'cypress-run')
+
+    const {data: updateResult } = await octokit.checks.update({
+        ...ownership,
+        check_run_id: checkRun?.id,
+        name: `cypress-run-updated`,
+        details_url: 'https://soomolearning.com',
+        conclusion: conclusion ? 'success' : 'failure',
+        output: {
+            title: 'Check Output',
+            summary: formatSummaryData(summary),
+            annotations,
+        },
     })
+
+    core.info(`Update result`)
+    core.info(JSON.stringify(updateResult, null, 2))
 
     const { data } = await octokit.checks.create({
         ...ownership,
